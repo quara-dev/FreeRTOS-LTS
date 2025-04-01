@@ -1,0 +1,80 @@
+option('build_defines', type : 'array', value : [])
+
+option('CPU_CLOCK_HZ', type : 'integer', default : 400000000, description : 'CPU clock frequency in Hz')
+
+option('TICK_RATE_HZ', type : 'integer', default : 1000, description : 'Tick rate frequency in Hz')
+option('USE_PREEMPTION', type : 'boolean', default : true, description : 'Enable preemptive scheduling')
+option('USE_TIME_SLICING', type : 'boolean', default : false, description : 'Enable time slicing')
+option('USE_PORT_OPTIMISED_TASK_SELECTION', type : 'boolean', default : true, description : 'Enable port optimised task selection')
+option('USE_TICKLESS_IDLE', type : 'boolean', default : true, description : 'Enable tickless idle')
+option('MAX_PRIORITIES', type : 'integer', default : 5, description : 'Maximum number of task priorities')
+option('MINIMAL_STACK_SIZE', type : 'integer', default : 128, description : 'Minimum stack size for tasks')
+option('MAX_TASK_NAME_LEN', type : 'integer', default : 4, description : 'Maximum task name length')
+# Note:  TICK_TYPE_WIDTH_IN_BITS is not converted as it requires a more complex mapping to a string or enum type.  It's better handled directly in meson.build.
+option('IDLE_SHOULD_YIELD', type : 'boolean', default : true, description : 'Idle task should yield')
+option('TASK_NOTIFICATION_ARRAY_ENTRIES', type : 'integer', default : 1, description : 'Number of task notification array entries')
+option('QUEUE_REGISTRY_SIZE', type : 'integer', default : 0, description : 'Size of the queue registry')
+option('NUM_THREAD_LOCAL_STORAGE_POINTERS', type : 'integer', default : 0, description : 'Number of thread local storage pointers')
+option('USE_MINI_LIST_ITEM', type : 'boolean', default : false, description : 'Use mini list item')
+
+
+option('USE_TIMERS', type : 'boolean', default : true, description : 'Enable software timers')
+option('USE_EVENT_GROUPS', type : 'boolean', default : true, description : 'Enable event group functionality ')
+option('USE_STREAM_BUFFERS', type : 'boolean', default : true, description : 'Enable stream buffer functionality ')
+
+option('TOTAL_HEAP_SIZE', type : 'integer', default : 4096, description : 'Total heap size')
+option('ENABLE_HEAP_PROTECTOR', type : 'boolean', default : true, description : 'Enable heap protection for heap_4 and heap_5')
+
+option('CORTEX_M_PRIO_BITS', type : 'integer', default : 4, description : 'PRIO BITS for cortex M based MCUs')
+option('LOWEST_INTERRUPT_PRIORITY', type : 'integer', default : 15, description : 'PRIO BITS for cortex M based MCUs')
+option('MAX_SYSCALL_INTERRUPT_PRIORITY', type : 'integer', default : 5, description : 'PRIO BITS for cortex M based MCUs')
+
+option('USE_IDLE_HOOK', type : 'boolean', default : false, description : 'Enable idle hook')
+option('USE_TICK_HOOK', type : 'boolean', default : false, description : 'Enable tick hook')
+option('USE_MALLOC_FAILED_HOOK', type : 'boolean', default : false, description : 'Enable malloc failed hook')
+option('USE_DAEMON_TASK_STARTUP_HOOK', type : 'boolean', default : false, description : 'Enable daemon task startup hook')
+option('CHECK_FOR_STACK_OVERFLOW', type : 'integer', default : 2, description : 'Check for stack overflow (0, 1, or 2)')
+
+option('GENERATE_RUN_TIME_STATS', type : 'boolean', default : false, description : 'Generate run time statistics')
+option('USE_TRACE_FACILITY', type : 'boolean', default : false, description : 'Enable trace facility')
+option('USE_STATS_FORMATTING_FUNCTIONS', type : 'boolean', default : false, description : 'Enable statistics formatting functions')
+
+
+option('INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS', type : 'boolean', default : false, description : 'Enable task notifications')
+option('ENABLE_MPU', type : 'boolean', default : false, description : 'Enable mutexes')
+
+
+option('FREERTOS_TRACE_MODE',
+    description: 'Set Trace Mode (DISABLE, Snapshot saved in FS, Streaming to RTT, Streaming to UART)',
+    type : 'combo',
+     choices: [
+        'DISABLE',
+        'SNAPSHOT_FS',
+        'STREAM_RTT',
+        'STREAM_UART',
+    ],
+    value : 'DISABLE')
+
+
+option('USE_RTT',
+    type : 'boolean',
+    value : true,
+    description : 'Enable Jlink RTT')
+
+option('USE_LPTIM',
+    type : 'boolean',
+    value : true,
+    description : 'Enable LPTIM as systic timer for tickless idle'
+)
+
+option('MEM_MGR_TYPE',
+    description: 'Configure Freertos HEAP mem type (default: 4)',
+    type: 'combo',
+    choices: [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+    ],
+    value: '4',)
