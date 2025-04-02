@@ -108,14 +108,13 @@ freertos_kernel_sources = files(
 
 # Add heap implementation if specified
 freertos_heap = get_option('FREERTOS_HEAP')
-if freertos_heap
-  heap_source = 'portable/MemMang/heap_{}.c'.format(freertos_heap)
-  freertos_kernel_sources += files(heap_source)
-endif
+
+heap_source = 'portable/MemMang/heap_{}.c'.format(freertos_heap)
+freertos_kernel_sources += files(heap_source)
 
 # Add MPU  implementation if specified
-freertos_heap = get_option('ENABLE_MPU')
-if freertos_heap
+freertos_mpu = get_option('ENABLE_MPU')
+if freertos_mpu
   mpu_source = 'Common/mpu_wrappers_v2.c'
   mpu_source += 'Common/mpu_wrappers.c'
   freertos_kernel_sources += files(mpu_source)
