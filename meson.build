@@ -134,7 +134,10 @@ endif
 
 
 # Define include directories
-freertos_kernel_include = include_directories('include')
+freertos_kernel_include = include_directories(
+     '.',
+    'include',
+)
 
 # Create library target for freertos_kernel
 freertos_kernel = static_library('freertos_kernel',
@@ -143,4 +146,10 @@ freertos_kernel = static_library('freertos_kernel',
     # dependencies: dependencies,
     # c_args: compile_definitions,
     install: false # Usually FreeRTOS is not installed as a system library
+)
+
+FreeRTOS_Kernel_LTS_deps = declare_dependency(
+    include_directories: fatfs_inc,
+    link_whole: fatfs_lib,
+    compile_args: [common_cflags],
 )
