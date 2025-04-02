@@ -121,11 +121,11 @@ if freertos_mpu
 endif
 
 freertos_port = get_option('FREERTOS_PORT')
-if freertos_port == 'GCC_ARM_CM4F'
+if freertos_port.contains('GCC_ARM_CM4F')
   freertos_kernel_sources += 'portable/GCC/ARM_CM4F/port.c'
   freertos_kernel_port_headers = include_directories('portable/GCC/ARM_CM4F')
 
-elif freertos_port ==  'GCC_ARM_CM7'
+elif freertos_port.contains('GCC_ARM_CM7')
   freertos_kernel_sources += 'portable/GCC/ARM_CM7/r0p1/port.c'
   freertos_kernel_port_headers = include_directories('portable/GCC/ARM_CM7/r0p1')
 else 
