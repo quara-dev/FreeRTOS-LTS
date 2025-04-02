@@ -47,6 +47,7 @@ rtos_non_bool_option_list = [
 
 bool_option_list = [
     'USE_PREEMPTION',
+    'IDLE_SHOULD_YIELD',
     'USE_TIME_SLICING',
     'USE_PORT_OPTIMISED_TASK_SELECTION',
     'USE_IDLE_HOOK',
