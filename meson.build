@@ -43,8 +43,6 @@ rtos_non_bool_option_list = [
     'LOWEST_INTERRUPT_PRIORITY',
     'MAX_SYSCALL_INTERRUPT_PRIORITY',
     'CHECK_FOR_STACK_OVERFLOW',
-    'FREERTOS_PORT',
-    'FREERTOS_HEAP',
 ]
 
 bool_option_list = [
@@ -85,6 +83,8 @@ foreach bool_option : bool_option_list
     rtos_config.set(bool_option, 0)
   endif
 endforeach
+
+
 
 # Generate configuration header
 configure_file(
