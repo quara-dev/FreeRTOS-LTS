@@ -65,9 +65,9 @@ bool_option_list = [
 
 # set options
 foreach non_bool_option : rtos_non_bool_option_list
-  if get_option(non_bool_option) == ''
-    error('Option {} is not set. Please specify it as an option when running Meson.'.format(non_bool_option))
-  endif
+#   if get_option(non_bool_option) == ''
+#     error('Option {} is not set. Please specify it as an option when running Meson.'.format(non_bool_option))
+#   endif
     if get_option(non_bool_option) == 0
         rtos_config.set(non_bool_option, 0)
     else
