@@ -11,7 +11,7 @@ option('MAX_TASK_NAME_LEN', type : 'integer', min : 0, max : 32, value  : 4, des
 # Note:  TICK_TYPE_WIDTH_IN_BITS is not converted as it requires a more complex mapping to a string or enum type.  It's better handled directly in meson.build.
 option('IDLE_SHOULD_YIELD', type : 'boolean', value : true, description : 'Idle task should yield')
 option('TASK_NOTIFICATION_ARRAY_ENTRIES', type : 'integer', min : 0, max : 5, value  : 1, description : 'Number of task notification array entries')
-option('QUEUE_REGISTRY_SIZE', type : 'integer', min : 0, max : 5, value  : 0, description : 'Size of the queue registry')
+option('QUEUE_REGISTRY_SIZE', type : 'integer', min : 0, max : 128, value  : 0, description : 'Size of the queue registry')
 option('NUM_THREAD_LOCAL_STORAGE_POINTERS', type : 'integer', min : 0, max : 5, value  : 0, description : 'Number of thread local storage pointers')
 option('USE_MINI_LIST_ITEM', type : 'boolean', value : false, description : 'Use mini list item')
 
