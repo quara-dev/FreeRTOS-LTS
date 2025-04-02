@@ -140,7 +140,7 @@ freertos_kernel_include = include_directories('include')
 freertos_kernel = static_library('freertos_kernel',
     freertos_kernel_sources,
     include_directories : [freertos_kernel_include, freertos_kernel_port_headers],
-    dependencies: dependencies,
-    c_args: compile_definitions,
+    # dependencies: dependencies,
+    # c_args: compile_definitions,
     install: false # Usually FreeRTOS is not installed as a system library
 )
