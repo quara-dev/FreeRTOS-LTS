@@ -1,11 +1,11 @@
 project('FreeRTOS-LTS', 
-    'c', version: '202406-LTS', meson_version: '>=1.3.0', default_options: ['buildtype=release'])
+    'c',
+    version: '202406-LTS', 
+    meson_version: '>=1.3.0',
+    default_options: ['buildtype=release'])
 
 setmod = import('sourceset')
 compiler = meson.get_compiler('c', native: false)
-cmake = import('cmake')
-
-
 
 add_project_arguments([
   '-Wno-implicit-fallthrough',
@@ -21,45 +21,55 @@ add_project_arguments([
 ], native: false, language: 'c')
 
 
-
-# Define the configuration variables
-config_variables = configuration_data()
-config_variables.set('configMAX_TASK_NAME_LEN', 32)
-config_variables.set('configMINIMAL_STACK_SIZE', 128)
-config_variables.set('configENABLE_MPU', 0)
-config_variables.set('configUSE_TICKLESS_IDLE', 0)
+# Options
+freertos_port = get_option('FREERTOS_PORT')
+freertos_heap = get_option('FREERTOS_HEAP')
 
 
-
-
-build_c_flags = get_option('build_defines')  ## gets STM32 family
-
-
-freertos_opts = cmake.subproject_options()
-freertos_opts.add_cmake_defines({
-	'CMAKE_POSITION_INDEPENDENT_CODE': true,
-  })
-
-if not build_libs
-	freertos_opts.add_cmake_defines({
-		'ENABLE_INSTALL': false
-	})
-
-	freertos_opts.set_install(false)
-	freertos_opts.set_override_option('build_by_default','false')
-else
-	freertos_opts.add_cmake_defines({
-		'ENABLE_INSTALL': true
-	})
-
-	freertos_opts.set_override_option('install_dir', join_paths(game_dir,'bin'))
+if not freertos_port
+  error('FREERTOS_PORT is not set. Please specify it as an option when running Meson.')
 endif
 
-FreeRTOS_Kernel = cmake.subproject('FreeRTOS-Kernel', options: freertos_opts)
+# Create configuration data object
+rtos_config = configuration_data()
+message('Configuring FreeRTOS library')
 
-FreeRTOS_Kernel_dep = declare_dependency(
-	dependencies: [
-		FreeRTOS_Kernel.dependency('FreeRTOS-Kernel'),
-    FreeRTOS_Kernel.dependency('FreeRTOS-Kernel-Config'),
-	]
+
+# Define mandatory library target: freertos_config
+if not compiler.has_header_symbol('FreeRTOSConfig.h', 'config')
+  error('freertos_config target not specified. Please define the include directory for FreeRTOSConfig.h.')
+endif
+
+
+# Define sources for freertos_kernel
+freertos_kernel_sources = files(
+  'croutine.c',
+  'event_groups.c',
+  'list.c',
+  'queue.c',
+  'stream_buffer.c',
+  'tasks.c',
+  'timers.c'
+)
+
+# Add heap implementation if specified
+freertos_heap = get_option('FREERTOS_HEAP')
+if freertos_heap
+  heap_source = 'portable/MemMang/heap_{}.c'.format(freertos_heap)
+  freertos_kernel_sources += files(heap_source)
+endif
+
+
+
+# Define include directories
+freertos_kernel_include = include_directories('include')
+freertos_kernel_port_headers = include_directories('portable')
+
+# Create library target for freertos_kernel
+freertos_kernel = static_library('freertos_kernel',
+    freertos_kernel_sources,
+    include_directories : [freertos_kernel_include, freertos_kernel_port_headers]
+    dependencies: dependencies,
+    c_args: compile_definitions,
+    install: false # Usually FreeRTOS is not installed as a system library
 )

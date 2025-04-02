@@ -1,8 +1,6 @@
-option('build_defines', type : 'array', value : [])
+option('CPU_CLOCK_HZ', type : 'integer', min : 0, max : 500000000, value  : 400000000, description : 'CPU clock frequency in Hz')
 
-option('CPU_CLOCK_HZ', type : 'integer', default : 400000000, description : 'CPU clock frequency in Hz')
-
-option('TICK_RATE_HZ', type : 'integer', default : 1000, description : 'Tick rate frequency in Hz')
+option('TICK_RATE_HZ', type : 'integer', min : 0, max : 5, value : 1000, description : 'Tick rate frequency in Hz')
 option('USE_PREEMPTION', type : 'boolean', default : true, description : 'Enable preemptive scheduling')
 option('USE_TIME_SLICING', type : 'boolean', default : false, description : 'Enable time slicing')
 option('USE_PORT_OPTIMISED_TASK_SELECTION', type : 'boolean', default : true, description : 'Enable port optimised task selection')
@@ -44,30 +42,13 @@ option('INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS', type : 'boolean', def
 option('ENABLE_MPU', type : 'boolean', default : false, description : 'Enable mutexes')
 
 
-option('FREERTOS_TRACE_MODE',
-    description: 'Set Trace Mode (DISABLE, Snapshot saved in FS, Streaming to RTT, Streaming to UART)',
-    type : 'combo',
-     choices: [
-        'DISABLE',
-        'SNAPSHOT_FS',
-        'STREAM_RTT',
-        'STREAM_UART',
-    ],
-    value : 'DISABLE')
 
+option('FREERTOS_PORT',
+    type : 'string',
+    value : '',
+    description : 'an option to describe the freertos port',)
 
-option('USE_RTT',
-    type : 'boolean',
-    value : true,
-    description : 'Enable Jlink RTT')
-
-option('USE_LPTIM',
-    type : 'boolean',
-    value : true,
-    description : 'Enable LPTIM as systic timer for tickless idle'
-)
-
-option('MEM_MGR_TYPE',
+option('FREERTOS_HEAP',
     description: 'Configure Freertos HEAP mem type (default: 4)',
     type: 'combo',
     choices: [
