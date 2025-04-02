@@ -75,6 +75,7 @@ foreach non_bool_option : rtos_non_bool_option_list
         rtos_config.set(non_bool_option, 0)
     else
         rtos_config.set(non_bool_option, get_option(non_bool_option))
+    endif
 endforeach
 
 # set boolean options
