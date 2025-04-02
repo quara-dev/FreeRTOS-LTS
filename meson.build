@@ -149,7 +149,6 @@ freertos_kernel = static_library('freertos_kernel',
 )
 
 FreeRTOS_Kernel_LTS_deps = declare_dependency(
-    include_directories: fatfs_inc,
-    link_whole: fatfs_lib,
-    compile_args: [common_cflags],
+    include_directories: [freertos_kernel_include, freertos_kernel_port_headers],
+    link_whole: freertos_kernel,
 )
