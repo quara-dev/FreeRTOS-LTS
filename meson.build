@@ -108,7 +108,7 @@ freertos_kernel_sources = files(
 
 # Add heap implementation if specified
 freertos_heap = get_option('FREERTOS_HEAP')
-message('FreeRTOS heap type: {}'.format(freertos_heap))
+message('FreeRTOS heap type: @0@'.format(freertos_heap))
 heap_source = 'portable/MemMang/heap_@0@.c'.format(freertos_heap)
 freertos_kernel_sources += files(heap_source)
 
@@ -129,7 +129,7 @@ elif freertos_port ==  'GCC_ARM_CM7'
   freertos_kernel_sources += 'portable/GCC/ARM_CM7/r0p1/port.c'
   freertos_kernel_port_headers = include_directories('portable/GCC/ARM_CM7/r0p1')
 else 
-    error('Unsupported FreeRTOS port: {}'.format(freertos_port))
+    error('Unsupported FreeRTOS port: @0@'.format(freertos_port))
 endif
 
 
