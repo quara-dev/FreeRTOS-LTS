@@ -45,7 +45,7 @@ option('ENABLE_MPU', type : 'boolean', value : false, description : 'Enable mute
 
 option('FREERTOS_PORT',
     type : 'string',
-    value : '',
+    value : 'GCC_ARM_CM7',
     description : 'an option to describe the freertos port',)
 
 option('FREERTOS_HEAP',
