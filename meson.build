@@ -108,9 +108,21 @@ freertos_kernel_sources = files(
 
 # Add heap implementation if specified
 freertos_heap = get_option('FREERTOS_HEAP')
+message('FreeRTOS heap type: {}'.format(freertos_heap))
+if freertos_heap == '1'
+  freertos_kernel_sources += files('portable/MemMang/heap_1.c')
+elif freertos_heap == '2'
+  freertos_kernel_sources += files('portable/MemMang/heap_2.c')
+elif freertos_heap == '3'
+  freertos_kernel_sources += files('portable/MemMang/heap_3.c')
+elif freertos_heap == '4'
+  freertos_kernel_sources += files('portable/MemMang/heap_4.c')
+elif freertos_heap == '5'
+  freertos_kernel_sources += files('portable/MemMang/heap_5.c')
+else
+  error('Unsupported FreeRTOS heap type: {}'.format(freertos_heap))
+endif
 
-heap_source = 'portable/MemMang/heap_{}.c'.format(freertos_heap)
-freertos_kernel_sources += files(heap_source)
 
 # Add MPU  implementation if specified
 freertos_mpu = get_option('ENABLE_MPU')
