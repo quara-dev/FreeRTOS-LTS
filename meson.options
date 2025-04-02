@@ -1,45 +1,45 @@
 option('CPU_CLOCK_HZ', type : 'integer', min : 0, max : 500000000, value  : 400000000, description : 'CPU clock frequency in Hz')
 
 option('TICK_RATE_HZ', type : 'integer', min : 0, max : 5000, value : 1000, description : 'Tick rate frequency in Hz')
-option('USE_PREEMPTION', type : 'boolean', default : true, description : 'Enable preemptive scheduling')
-option('USE_TIME_SLICING', type : 'boolean', default : false, description : 'Enable time slicing')
-option('USE_PORT_OPTIMISED_TASK_SELECTION', type : 'boolean', default : true, description : 'Enable port optimised task selection')
+option('USE_PREEMPTION', type : 'boolean', value : true, description : 'Enable preemptive scheduling')
+option('USE_TIME_SLICING', type : 'boolean', value : false, description : 'Enable time slicing')
+option('USE_PORT_OPTIMISED_TASK_SELECTION', type : 'boolean', value : true, description : 'Enable port optimised task selection')
 option('USE_TICKLESS_IDLE', type : 'integer', min : 0, max : 32, value : 0, description : 'Enable tickless idle')
 option('MAX_PRIORITIES', type : 'integer', min : 0, max : 32, value : 5, description : 'Maximum number of task priorities')
 option('MINIMAL_STACK_SIZE', type : 'integer', min : 128, max : 1024, value  : 128, description : 'Minimum stack size for tasks')
 option('MAX_TASK_NAME_LEN', type : 'integer', min : 0, max : 32, value  : 4, description : 'Maximum task name length')
 # Note:  TICK_TYPE_WIDTH_IN_BITS is not converted as it requires a more complex mapping to a string or enum type.  It's better handled directly in meson.build.
-option('IDLE_SHOULD_YIELD', type : 'boolean', default : true, description : 'Idle task should yield')
+option('IDLE_SHOULD_YIELD', type : 'boolean', value : true, description : 'Idle task should yield')
 option('TASK_NOTIFICATION_ARRAY_ENTRIES', type : 'integer', min : 0, max : 5, value  : 1, description : 'Number of task notification array entries')
 option('QUEUE_REGISTRY_SIZE', type : 'integer', min : 0, max : 5, value  : 0, description : 'Size of the queue registry')
 option('NUM_THREAD_LOCAL_STORAGE_POINTERS', type : 'integer', min : 0, max : 5, value  : 0, description : 'Number of thread local storage pointers')
-option('USE_MINI_LIST_ITEM', type : 'boolean', default : false, description : 'Use mini list item')
+option('USE_MINI_LIST_ITEM', type : 'boolean', value : false, description : 'Use mini list item')
 
 
-option('USE_TIMERS', type : 'boolean', default : true, description : 'Enable software timers')
-option('USE_EVENT_GROUPS', type : 'boolean', default : true, description : 'Enable event group functionality ')
-option('USE_STREAM_BUFFERS', type : 'boolean', default : true, description : 'Enable stream buffer functionality ')
+option('USE_TIMERS', type : 'boolean', value : true, description : 'Enable software timers')
+option('USE_EVENT_GROUPS', type : 'boolean', value : true, description : 'Enable event group functionality ')
+option('USE_STREAM_BUFFERS', type : 'boolean', value : true, description : 'Enable stream buffer functionality ')
 
 option('TOTAL_HEAP_SIZE', type : 'integer', min : 1024, max : 4096, value  : 4096, description : 'Total heap size')
-option('ENABLE_HEAP_PROTECTOR', type : 'boolean', default : true, description : 'Enable heap protection for heap_4 and heap_5')
+option('ENABLE_HEAP_PROTECTOR', type : 'boolean', value : true, description : 'Enable heap protection for heap_4 and heap_5')
 
 option('CORTEX_M_PRIO_BITS', type : 'integer', min : 0, max : 5, value  : 4, description : 'PRIO BITS for cortex M based MCUs')
 option('LOWEST_INTERRUPT_PRIORITY', type : 'integer', min : 0, max : 15, value  : 15, description : 'PRIO BITS for cortex M based MCUs')
 option('MAX_SYSCALL_INTERRUPT_PRIORITY', type : 'integer', min : 0, max : 15, value  : 5, description : 'PRIO BITS for cortex M based MCUs')
 
-option('USE_IDLE_HOOK', type : 'boolean', default : false, description : 'Enable idle hook')
-option('USE_TICK_HOOK', type : 'boolean', default : false, description : 'Enable tick hook')
-option('USE_MALLOC_FAILED_HOOK', type : 'boolean', default : false, description : 'Enable malloc failed hook')
-option('USE_DAEMON_TASK_STARTUP_HOOK', type : 'boolean', default : false, description : 'Enable daemon task startup hook')
+option('USE_IDLE_HOOK', type : 'boolean', value : false, description : 'Enable idle hook')
+option('USE_TICK_HOOK', type : 'boolean', value : false, description : 'Enable tick hook')
+option('USE_MALLOC_FAILED_HOOK', type : 'boolean', value : false, description : 'Enable malloc failed hook')
+option('USE_DAEMON_TASK_STARTUP_HOOK', type : 'boolean', value : false, description : 'Enable daemon task startup hook')
 option('CHECK_FOR_STACK_OVERFLOW', type : 'integer', min : 0, max : 2, value  : 2, description : 'Check for stack overflow (0, 1, or 2)')
 
-option('GENERATE_RUN_TIME_STATS', type : 'boolean', default : false, description : 'Generate run time statistics')
-option('USE_TRACE_FACILITY', type : 'boolean', default : false, description : 'Enable trace facility')
-option('USE_STATS_FORMATTING_FUNCTIONS', type : 'boolean', default : false, description : 'Enable statistics formatting functions')
+option('GENERATE_RUN_TIME_STATS', type : 'boolean', value : false, description : 'Generate run time statistics')
+option('USE_TRACE_FACILITY', type : 'boolean', value : false, description : 'Enable trace facility')
+option('USE_STATS_FORMATTING_FUNCTIONS', type : 'boolean', value : false, description : 'Enable statistics formatting functions')
 
 
-option('INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS', type : 'boolean', default : false, description : 'Enable task notifications')
-option('ENABLE_MPU', type : 'boolean', default : false, description : 'Enable mutexes')
+option('INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS', type : 'boolean', value : false, description : 'Enable task notifications')
+option('ENABLE_MPU', type : 'boolean', value : false, description : 'Enable mutexes')
 
 
 
@@ -49,7 +49,7 @@ option('FREERTOS_PORT',
     description : 'an option to describe the freertos port',)
 
 option('FREERTOS_HEAP',
-    description: 'Configure Freertos HEAP mem type (default: 4)',
+    description: 'Configure Freertos HEAP mem type (value: 4)',
     type: 'combo',
     choices: [
         '1',
