@@ -134,8 +134,6 @@ if freertos_port == 'GCC_ARM_CM7'
   freertos_kernel_port_headers = include_directories('portable/GCC/ARM_CM7/r0p1')
 
 endif
-  error('FREERTOS_PORT is not set. Please specify it as an option when running Meson.')
-endif
 
 
 # Define include directories
